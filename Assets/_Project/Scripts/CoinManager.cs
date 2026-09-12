@@ -1,24 +1,30 @@
+using System;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
-    { 
-      if (other.CompareTag("Player")) { 
-           
-       Destroy(gameObject); } }
+    public static CoinManager Instance { get; private set; }
 
+    public event Action<int> OnCoinsChanged;
 
+    public int Coins { get; private set; }
 
-     
-        void Start()
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 
-    
-    void Update()
+    public void AddCoins(int amount)
     {
-        
+        Coins += amount;
+
+       
+        OnCoinsChanged?.Invoke(Coins);
     }
 }
