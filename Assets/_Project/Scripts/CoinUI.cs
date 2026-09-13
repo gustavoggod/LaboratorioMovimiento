@@ -11,14 +11,14 @@ public class CoinUI : MonoBehaviour
     {
         if (CoinManager.Instance == null)
         {
-            Debug.LogError("No existe un CoinManager en la escena.");
+            Debug.LogError("Agregar CoinManager");
             return;
         }
 
-        // Mostrar valor inicial
+
         UpdateCoinText(CoinManager.Instance.Coins);
 
-        // Suscribirse al evento
+
         CoinManager.Instance.OnCoinsChanged += UpdateCoinText;
     }
 
